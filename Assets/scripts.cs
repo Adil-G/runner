@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class scripts : MonoBehaviour {
-
     private float moveKey = 0.5f;
-    public float sideMoveSpeed = 5f;
+    public float sideMoveSpeed = Constants.sideMoveSpeed;
 	// Use this for initialization
 	void Start () {
         animator.SetFloat("move", moveKey);
