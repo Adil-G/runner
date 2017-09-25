@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOutOfScreen: 1
-  destroyByCollision: 1
+  destroyByCollision: 0
   destroyByTime: 6
   nameOfDestroyBoundary: 
 --- !u!1001 &100100000

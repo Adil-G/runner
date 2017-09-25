@@ -50,6 +50,16 @@ public class initStage : MonoBehaviour {
             {
                 child.GetComponent<BoxCollider>().isTrigger = true;
             }
+            /*
+            if (child.GetComponent<MeshCollider>() == null)
+            {
+                child.AddComponent<MeshCollider>();
+                child.GetComponent<MeshCollider>().isTrigger = false;
+            }
+            else
+            {
+                child.GetComponent<MeshCollider>().isTrigger = false;
+            }*/
             FitColliderToChildren(child);
             selection.Add(child);
         }
@@ -57,37 +67,53 @@ public class initStage : MonoBehaviour {
     }
     private void FitColliderToChildren(GameObject parentObject)
     {
-        BoxCollider bc = parentObject.GetComponent<BoxCollider>();
-        if (bc == null) { bc = parentObject.AddComponent<BoxCollider>(); }
-        Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
-        bool hasBounds = false;
-        Renderer[] renderers = parentObject.GetComponentsInChildren<Renderer>();
-        foreach (Renderer render in renderers)
+        MeshFilter[] renderers = parentObject.GetComponentsInChildren<MeshFilter>();
+        foreach (MeshFilter render in renderers)
         {
-            if (hasBounds)
-            {
-                bounds.Encapsulate(render.bounds);
-            }
-            else
-            {
-                bounds = render.bounds;
-                hasBounds = true;
-            }
-        }
-        if (hasBounds)
-        {
-            bc.center = bounds.center - parentObject.transform.position;
-            bc.size = bounds.size;
-        }
-        else
-        {
-            bc.size = bc.center = Vector3.zero;
-            bc.size = Vector3.zero;
+            render.gameObject.AddComponent<MeshCollider>();
+            render.gameObject.GetComponent<MeshCollider>().sharedMesh = render.mesh;
         }
     }
 
-// Update is called once per frame
-void Update () {
+        /*
+        private void FitColliderToChildren(GameObject parentObject)
+        {
+            BoxCollider bc = parentObject.GetComponent<BoxCollider>();
+            if (bc == null) { bc = parentObject.AddComponent<BoxCollider>(); }
+            Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
+            bool hasBounds = false;
+            Renderer[] renderers = parentObject.GetComponentsInChildren<Renderer>();
+            foreach (Renderer render in renderers)
+            {
+                if (!render.gameObject.name.Contains("Ground")
+                    && !render.gameObject.name.Contains("Bridge"))
+                    continue;
+                if (render.gameObject.transform.childCount > 0)
+                    continue;
+                if (hasBounds)
+                {
+                    bounds.Encapsulate(render.bounds);
+                }
+                else
+                {
+                    bounds = render.bounds;
+                    hasBounds = true;
+                }
+            }
+            if (hasBounds)
+            {
+                bc.center = bounds.center - parentObject.transform.position;
+                bc.size = bounds.size;
+            }
+            else
+            {
+                bc.size = bc.center = Vector3.zero;
+                bc.size = Vector3.zero;
+            }
+        }*/
+
+        // Update is called once per frame
+        void Update () {
 		
 	}
 }
