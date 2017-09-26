@@ -60,7 +60,21 @@ public class initStage : MonoBehaviour {
             {
                 child.GetComponent<MeshCollider>().isTrigger = false;
             }*/
+            if (child.GetComponent<DestroyByOption>() == null)
+            {
+                child.AddComponent<DestroyByOption>();
+                child.GetComponent<DestroyByOption>().destroyByTime = 0;
+                child.GetComponent<DestroyByOption>().destroyByCollision = false;
+                child.GetComponent<DestroyByOption>().destroyOutOfScreen = true;
+            }
+            else
+            { 
+                child.GetComponent<DestroyByOption>().destroyByTime = 0;
+                child.GetComponent<DestroyByOption>().destroyByCollision = false;
+                child.GetComponent<DestroyByOption>().destroyOutOfScreen = true;
+            }
             FitColliderToChildren(child);
+            FitColliderToChildrenBOX(child);
             selection.Add(child);
         }
         obs.obstacle = selection.ToArray();
@@ -71,12 +85,12 @@ public class initStage : MonoBehaviour {
         foreach (MeshFilter render in renderers)
         {
             render.gameObject.AddComponent<MeshCollider>();
-            render.gameObject.GetComponent<MeshCollider>().sharedMesh = render.mesh;
+            render.gameObject.GetComponent<MeshCollider>().sharedMesh = render.sharedMesh;
         }
     }
 
-        /*
-        private void FitColliderToChildren(GameObject parentObject)
+        
+        private void FitColliderToChildrenBOX(GameObject parentObject)
         {
             BoxCollider bc = parentObject.GetComponent<BoxCollider>();
             if (bc == null) { bc = parentObject.AddComponent<BoxCollider>(); }
@@ -110,7 +124,7 @@ public class initStage : MonoBehaviour {
                 bc.size = bc.center = Vector3.zero;
                 bc.size = Vector3.zero;
             }
-        }*/
+        }
 
         // Update is called once per frame
         void Update () {

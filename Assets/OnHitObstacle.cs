@@ -47,6 +47,8 @@ public class OnHitObstacle : MonoBehaviour {
             {
                 //GameObject.Find("Running").transform.position -= Vector3.up * 100;
                 Debug.Log("HHIIIITTT!!!");
+                SumScore.SaveHighScore();
+                Constants.dead = true;
                 SumPause.Status = true;
                 //SumScoreExample
             }

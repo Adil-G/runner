@@ -22,9 +22,12 @@ public class Character : MonoBehaviour {
         //Debug.Log(GameObject.Find("Running").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).nameHash);
         if (Physics.Raycast(transform.position, -Vector3.up, out hit))
         {
-            Debug.DrawLine(transform.position, hit.point, Color.cyan);
-            started = true;
-            GameObject.Find("Running").GetComponent<Rigidbody>().useGravity = true;
+            if (hit.collider.name != "lava")
+            {
+                Debug.DrawLine(transform.position, hit.point, Color.cyan);
+                started = true;
+                GameObject.Find("Running").GetComponent<Rigidbody>().useGravity = true;
+            }
         }
         if (started)
         {

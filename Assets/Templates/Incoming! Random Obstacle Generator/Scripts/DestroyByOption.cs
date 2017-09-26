@@ -19,23 +19,40 @@ public class DestroyByOption : MonoBehaviour {
 	//bool to indivate if the renderer of the object is visible
 	private bool visible;
 
-	//destroy by time
-	void Start () 
+    public Transform target;
+    Camera cam;
+
+
+    //destroy by time
+    void Start () 
 	{
-		if (destroyByTime > 0)
+        cam = Camera.main;
+        target = transform;
+        if (destroyByTime > 0)
 		{
 			DestroyByTime();
 		}
 	}
 
 	//destroy by out-of-screen
-	void Update () 
-	{
-		if (GetComponent<Renderer>() != null)
+	void Update ()
+
+    {
+
+        /*if (GetComponent<Renderer>() != null)
 		{
 			visible = GetComponent<Renderer>().isVisible;
-		}
-		if (!visible && destroyOutOfScreen)
+		}*/
+        Vector3 viewPos = cam.WorldToViewportPoint(target.position);
+        /*if (viewPos.x > .9F || viewPos.x < .1F || target.position.z < -20f)
+            visible = false;
+        else
+            visible = true;*/
+        if (target.position.z < -10f)
+            visible = false;
+        else
+            visible = true;
+        if (!visible && destroyOutOfScreen)
 		{
 			Destroy (gameObject);
 		}

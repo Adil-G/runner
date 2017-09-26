@@ -9,6 +9,7 @@ internal class Constants : MonoBehaviour {
     public static bool isPaused = false;
     public static float sideMoveSpeed = 5f;
     public static float timeScore = 1f;
+    public static bool dead = false;
     // Use this for initialization
     void Start () {
 		
